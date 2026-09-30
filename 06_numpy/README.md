@@ -8,6 +8,7 @@
 | --- | --- | ---: |
 | `01_arr` | NumPy ndarray 基础、数组形状与维度、排序拼接、索引、变形、堆叠拆分、运算和去重 | 8 |
 | `02_numpy_100` | NumPy 综合练习题，以及一个空的测试文件 | 2 |
+| `03_practice` | 面向 Python → NumPy → OpenCV → PyTorch/YOLO 路线的自测练习 | 1 |
 
 ## `01_arr`：ndarray 基础
 
@@ -81,6 +82,12 @@
 ### [`test.ipynb`](02_numpy_100/test.ipynb)
 
 当前文件大小为 0 字节，没有 Notebook JSON 内容，因此暂时没有可总结的代码或练习。若要使用它，需要先写入有效的 Notebook 单元格。
+
+## `03_practice`：路线衔接练习
+
+### [`01_from_codex.ipynb`](03_practice/01_from_codex.ipynb)
+
+这是一份独立练习集，不依赖 `numpy_100.ipynb`。题目按照 Python → NumPy → OpenCV → PyTorch/YOLO 的学习路线组织，覆盖数组属性、axis、dtype、索引、广播、向量化、归约、形状变换、view/copy、图像数组布局、批量数据和检测框 IoU。每道题后面都有一个空代码单元，供学习者自行完成。
 
 ## 建议学习顺序
 
