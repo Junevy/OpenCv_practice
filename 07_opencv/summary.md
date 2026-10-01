@@ -1,6 +1,6 @@
 # OpenCV `01_start` 内容总结
 
-本文件夹按功能将 OpenCV 入门示例拆分为 01–13 个 Notebook。每个 Notebook 都可以单独运行；图像操作使用 OpenCV，结果显示使用 Matplotlib。
+本文件夹按功能将 OpenCV 入门示例拆分为 01–16 个 Notebook。每个 Notebook 都围绕一个图像处理主题；图像操作使用 OpenCV，结果显示使用 Matplotlib。另有 `02_excrcise` 目录存放独立的练习脚本。
 
 ## 共用数据与运行约定
 
@@ -9,6 +9,8 @@
 - `img`：彩色图像，路径为 `../img/img1.jpg`。
 - `img1`：灰度图像，路径为 `../img/img1.jpg`。
 - `img2`：灰度图像，路径为 `../img/img2.jpg`。
+- `LinuxLogo.jpg`：轮廓检测示例图，供 `15_contour_inspect.ipynb` 使用。
+- `smarties.png`：彩色直方图示例图，供 `16_histogram.ipynb` 使用。
 - `morphology` 示例使用 `../img/templ.png`。
 - `cv2.imread` 读取的彩色图像默认是 BGR 顺序；使用 Matplotlib 显示前要通过 `cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` 转为 RGB。
 - 图像数组的形状通常为 `height × width × channel`，像素索引采用 `image[row, column]`。
@@ -30,7 +32,16 @@
 | 10 | `10_image_calculate.ipynb` | 读取两张灰度图像，使用 `cv2.add` 相加、`cv2.subtract` 相减、`cv2.addWeighted` 按权重融合。两张图像需要具有相同尺寸。 |
 | 11 | `11_threshold.ipynb` | 对 `img1` 执行固定阈值、均值自适应阈值和 Otsu 自动阈值；输出均为二值图像，像素值通常为 0 或 255。 |
 | 12 | `12_blurry.ipynb` | 使用均值滤波 `cv2.blur`、高斯滤波 `cv2.GaussianBlur`、中值滤波 `cv2.medianBlur` 和双边滤波 `cv2.bilateralFilter`，比较不同平滑方法的效果。 |
-| 13 | `13_morphology.ipynb` | 创建 `15×15` 的 `uint8` 结构元素，演示腐蚀 `cv2.erode`、膨胀 `cv2.dilate`、开运算 `MORPH_OPEN`、闭运算 `MORPH_CLOSE`，以及原图与闭运算结果的差异。 |
+| 13 | `13_morphology.ipynb` | 创建 `15×15` 的 `uint8` 结构元素，演示腐蚀 `cv2.erode`、膨胀 `cv2.dilate`、开运算 `MORPH_OPEN`、闭运算 `MORPH_CLOSE`，以及形态学梯度和原图与闭运算结果的差异。 |
+| 14 | `14_edge_detect.ipynb` | 使用 Canny 检测边缘并膨胀结果；使用 Sobel 分别计算 x、y 方向梯度和组合梯度；使用 Laplacian 计算二阶边缘响应，并统计响应的最大值、均值和形状。 |
+| 15 | `15_contour_inspect.ipynb` | 将 `LinuxLogo.jpg` 二值化后查找轮廓，查看层级关系，绘制轮廓，按面积筛选轮廓，计算周长，并演示外接矩形、最小外接旋转矩形和最小外接圆。 |
+| 16 | `16_histogram.ipynb` | 计算灰度直方图，演示直方图均衡化；分别统计彩色图像的 B、G、R 直方图；转换到 YCrCb 空间观察亮度通道处理；使用 `cv2.compareHist` 计算两张灰度图直方图的相关性。 |
+
+## `02_excrcise` 练习
+
+| 文件 | 内容总结 |
+| --- | --- |
+| `01_laplacian.py` | 从 `img1.jpg` 截取 ROI（行 `600:2000`、列 `3000:4000`），计算原图的 Laplacian 方差作为清晰度指标，再对高斯核 `3、7、11、15、19、23` 的模糊结果重复计算，用于观察模糊程度与清晰度指标的关系；最后通过 OpenCV 窗口显示最后一次模糊结果。 |
 
 ## 处理流程速记
 
@@ -46,6 +57,30 @@
   ├─ 二值化：threshold / adaptiveThreshold / Otsu
   ├─ 平滑：mean / Gaussian / median / bilateral
   └─ 形态学：erosion / dilation / opening / closing
+
+边缘与结构
+  ├─ 边缘检测：Canny / Sobel / Laplacian
+  ├─ 轮廓分析：findContours / contourArea / arcLength
+  ├─ 几何包围：boundingRect / minAreaRect / minEnclosingCircle
+  └─ 清晰度评价：Laplacian 方差
+
+灰度分布
+  ├─ 直方图：calcHist
+  ├─ 对比度增强：equalizeHist
+  ├─ 彩色通道统计：B / G / R
+  └─ 图像比较：compareHist
+
+场景选择
+  ├─ 椒盐噪声 -> 中值滤波
+  ├─ 高频随机噪声 -> 高斯滤波
+  ├─ 光照不均 -> 自适应阈值 / 背景校正
+  ├─ 小黑点 -> 开运算等
+  ├─ 小孔洞 -> 闭运算 / fill
+  ├─ 对比度很差 -> 中值滤波
+  ├─ 灰度分布太集中 -> 均衡化可能有用
+  ├─ 前景背景灰度明显不同 -> threshold
+  ├─ 成像质量监控 -> Mean | StdDev | CompareHist | Laplacian 方差
+  └─ 不知道阈值选多少 -> 直方图 / Otsu
 ```
 
 ## 运行注意事项
@@ -56,3 +91,6 @@
 4. 图像加减和加权融合要求输入图像尺寸一致；不同尺寸需要先用 `cv2.resize` 对齐。
 5. 形态学操作的结构元素大小决定处理范围；结构元素越大，腐蚀、膨胀和开闭运算效果越明显。
 6. `13_morphology.ipynb` 中图像由 `cv2.imread` 读取，若按 OpenCV 的实际通道顺序处理，彩色转灰度建议使用 `cv2.COLOR_BGR2GRAY`。
+7. `14–16` 和 `02_excrcise/01_laplacian.py` 当前包含以工作区根目录为基准的图片路径；从其他目录启动 Notebook 或脚本前，应先确认 `07_opencv/img` 能被读取。
+8. `15_contour_inspect.ipynb` 的最小外接矩形示例应将角点数组转换为整数后再绘制；常用写法是 `bx = bx.astype(np.int32)`。
+9. `02_excrcise/01_laplacian.py` 使用 `cv2.imshow`、`waitKey` 和 `destroyAllWindows`，需要支持 GUI 的运行环境。
