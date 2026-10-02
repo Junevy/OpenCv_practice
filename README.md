@@ -55,11 +55,16 @@ PyTorch / YOLO 等深度学习方向
 
 OpenCV 示例位于 [`07_opencv/01_start`](07_opencv/01_start)。其中：
 
-- [`00_summary.md`](07_opencv/01_start/00_summary.md) 记录 01–13 个 Notebook 的知识点。
-- `02_read_image.ipynb` 至 `13_morphology.ipynb` 按功能拆分，均可单独运行。
+- [`summary.md`](07_opencv/summary.md) 记录 01–16 个 Notebook 和 `02_excrcise` 练习的知识点。
+- `02_read_image.ipynb` 至 `16_histogram.ipynb` 按功能拆分，均可单独运行；原始综合示例 `01_start.ipynb` 保留。
+- `02_excrcise` 包含清晰度评价、模板匹配、SIFT 特征匹配和图像拼接练习。
 - 示例图片统一放在 [`07_opencv/img`](07_opencv/img)，包括 `img1.jpg`、`img2.jpg` 和 `templ.png`。
 - 详细运行说明见 [`07_opencv/01_start/README.md`](07_opencv/01_start/README.md)。
 
 ## 说明
 
 这是一个持续整理中的学习项目，Notebook 以实验和演示为主。运行 Notebook 时建议使用“运行全部”并从头执行，避免因前序变量尚未创建而出现 `NameError`。
+
+## 隐私与提交规范
+
+仓库不应提交本机绝对路径、密钥、令牌、个人数据或生成文件。示例代码使用项目相对路径；运行产物和常见凭据文件已加入 [`.gitignore`](.gitignore)。如果敏感内容已经推送到 GitHub，请先立即撤销或轮换凭据，再按下方的历史清理流程处理提交记录。

@@ -29,3 +29,15 @@
 | [10_image_calculate.ipynb](10_image_calculate.ipynb) | 相加、相减、加权融合 |
 | [11_threshold.ipynb](11_threshold.ipynb) | 固定阈值、自适应阈值、Otsu 阈值 |
 | [12_blurry.ipynb](12_blurry.ipynb) | 均值、高斯、中值滤波 |
+
+
+## 练习目录
+
+`../02_excrcise` 包含以下独立练习：
+
+- `01_laplacian.py`：用 Laplacian 方差观察清晰度。
+- `02_template_match.ipynb`：模板匹配与旋转模板实验。
+- `03_match_test.py`：带掩膜的旋转模板匹配脚本。
+- `04_img_joint.py`：SIFT 特征匹配实验；脚本包含 GUI 显示，需要桌面环境。
+
+练习输入图片也位于 `../img`。

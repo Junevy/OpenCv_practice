@@ -1,0 +1,12 @@
+# generated demo data and local secrets should never be committed
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+opencv_demo_output/
+02io_data/
+
+__pycache__/
+*.pyc

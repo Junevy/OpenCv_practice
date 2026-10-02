@@ -1,6 +1,6 @@
 # OpenCV `01_start` 内容总结
 
-本文件夹按功能将 OpenCV 入门示例拆分为 01–16 个 Notebook。每个 Notebook 都围绕一个图像处理主题；图像操作使用 OpenCV，结果显示使用 Matplotlib。另有 `02_excrcise` 目录存放独立的练习脚本。
+本文件夹按功能整理 OpenCV 入门示例与练习。`01_start` 包含原始综合 Notebook 和按功能拆分的 02–16 号 Notebook；`02_excrcise` 包含清晰度评价、模板匹配、特征匹配和图像拼接练习；图片统一放在 `img`。图像操作使用 OpenCV，结果显示使用 Matplotlib。
 
 ## 共用数据与运行约定
 
@@ -41,7 +41,19 @@
 
 | 文件 | 内容总结 |
 | --- | --- |
-| `01_laplacian.py` | 从 `img1.jpg` 截取 ROI（行 `600:2000`、列 `3000:4000`），计算原图的 Laplacian 方差作为清晰度指标，再对高斯核 `3、7、11、15、19、23` 的模糊结果重复计算，用于观察模糊程度与清晰度指标的关系；最后通过 OpenCV 窗口显示最后一次模糊结果。 |
+| `01_laplacian.py` | 从 `img1.jpg` 截取 ROI（行 `600:2000`、列 `3000:4000`），计算原图和不同高斯核（3、7、11、15、19、23）模糊结果的 Laplacian 方差，并通过 OpenCV 窗口显示最后一次结果。 |
+| `02_template_match.ipynb` | 读取 `cards.png` 和 `poker.png`，按 ROI 尺寸缩放模板，使用 `cv.matchTemplate` 做灰度模板匹配，并尝试旋转模板后比较匹配分数。 |
+| `03_match_test.py` | 将 `cards.png` 中的模板按 0–359 度旋转，使用带掩膜的 `cv.matchTemplate` 计算匹配分数并输出最高分角度。 |
+| `04_img_joint.py` | 将 `pic1.png` 切成上下两个区域，使用 SIFT 提取特征并通过 BFMatcher 的 KNN 比率测试筛选匹配点；当前脚本仍使用 `cv.imshow`，需要 GUI 环境。 |
+
+## 新增练习的输入与状态
+
+| 输入图片 | 用途 |
+| --- | --- |
+| `cards.png`、`poker.png` | 模板匹配 |
+| `pic1.png` | SIFT 特征匹配与图像拼接练习 |
+
+这些练习使用与 `01_start` 相同的 OpenCV 内核。运行前请确认当前工作目录能解析到 `07_opencv/img`；Notebook 推荐在 `07_opencv` 目录或仓库根目录启动。模板匹配 Notebook 已保留实验代码，旋转模板部分会产生较多候选角度，适合逐步查看分数而不是一次性绘制所有结果。
 
 ## 处理流程速记
 
