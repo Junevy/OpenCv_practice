@@ -68,3 +68,21 @@ OpenCV 示例位于 [`07_opencv/01_start`](07_opencv/01_start)。其中：
 ## 隐私与提交规范
 
 仓库不应提交本机绝对路径、密钥、令牌、个人数据或生成文件。示例代码使用项目相对路径；运行产物和常见凭据文件已加入 [`.gitignore`](.gitignore)。如果敏感内容已经推送到 GitHub，请先立即撤销或轮换凭据，再按下方的历史清理流程处理提交记录。
+
+### 已推送历史的处理顺序
+
+1. 如果内容是密码、Token 或 API Key，先在对应服务中撤销并轮换；仅删除 Git 文件不能让已泄露凭据失效。
+2. 在仓库的独立镜像克隆中安装 `git-filter-repo`，使用 `--path` 删除文件，或使用 `--replace-text` 替换历史文本：
+
+   ```powershell
+   git clone --mirror https://github.com/OWNER/REPOSITORY.git
+   cd REPOSITORY.git
+   py -m pip install git-filter-repo
+   git filter-repo --sensitive-data-removal --replace-text C:/path/to/replacements.txt
+   git push --force --mirror origin
+   ```
+
+3. 强制推送会改变提交 SHA，其他克隆必须重新克隆或按 `git-filter-repo` 的清理步骤处理，不能直接 `pull` 后再推送。
+4. GitHub 的 Push/Audit 事件记录本身不会因为重写分支而消失；如果是凭据等敏感数据，重写后还要向 [GitHub Support](https://support.github.com/) 申请清理缓存、旧提交引用和受影响的 Pull Request。
+
+历史重写属于破坏性操作，执行前应确认仓库所有者、需要保留的分支/标签和要替换的具体文本。
